@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="64991dd1-59a2-43e6-947c-84d0b3605900" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
@@ -11,5 +12,22 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<http:listener doc:name="Listener" doc:id="9880f656-bd6c-4482-a8d0-1a67d74ec694" config-ref="HTTP_Listener_config" path="/moon"/>
 		<set-payload value="moon" doc:name="Set Payload" doc:id="9ffd7c59-d613-4a6c-ad25-4a6920f5d79a" />
 		<logger level="INFO" doc:name="Logger" doc:id="2bef4f09-775c-4adc-9263-23dcc44d9fd0" message="#[pyaload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="c9097dea-1349-4b6d-ae48-30a22032288e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="d899213e-881a-4145-a791-03f175914b34" >
+			<when expression="#[payload]">
+				<logger level="INFO" doc:name="Logger" doc:id="4351d395-5ccb-4d86-b2f7-80420f951b0e" />
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger" doc:id="273f6b4e-f1d2-4afe-9097-2fc4a5a592f2" />
+			</otherwise>
+		</choice>
 	</flow>
 </mule>
