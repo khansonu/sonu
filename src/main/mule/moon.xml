@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="64991dd1-59a2-43e6-947c-84d0b3605900" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="moonFlow" doc:id="54f02f55-a1fe-4ca9-b173-13b54f75d347" >
+		<http:listener doc:name="Listener" doc:id="9880f656-bd6c-4482-a8d0-1a67d74ec694" config-ref="HTTP_Listener_config" path="/moon"/>
+		<set-payload value="moon" doc:name="Set Payload" doc:id="9ffd7c59-d613-4a6c-ad25-4a6920f5d79a" />
+		<logger level="INFO" doc:name="Logger" doc:id="2bef4f09-775c-4adc-9263-23dcc44d9fd0" message="#[pyaload]"/>
+	</flow>
+</mule>
