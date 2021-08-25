@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="69f31393-fa29-4c82-8639-8a4f190dee71" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="github1Flow" doc:id="ac2301e6-9b36-48fd-94c1-de54d44259aa" >
+		<http:listener doc:name="Listener" doc:id="78462275-92b2-4814-ae84-f64081032653" config-ref="HTTP_Listener_config" path="/test"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="7efab4a3-6546-4ec0-abec-1488e7e137f9" />
+		<logger level="INFO" doc:name="Logger" doc:id="817eff2c-f8d2-464d-9635-2ade3cfc818b" message="#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="775f28f7-969a-4826-ad38-ac982a5f2567" message="#[payload]"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="c847dede-b4a5-49c1-a06e-854e72faab97" />
+	</flow>
+</mule>
