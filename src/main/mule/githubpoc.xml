@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="b5cf80fc-ca34-44fe-b495-34f440d85de5" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="githubpocFlow" doc:id="28691189-d909-49f8-9f24-fb0fdd97df46" >
+		<http:listener doc:name="Listener" doc:id="bbcf559d-a829-4579-9ab3-45ea863d8430" config-ref="HTTP_Listener_config" path="/sonu"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="f71c8050-4e29-4a87-8538-db7682ac2cd0" />
+		<logger level="INFO" doc:name="Logger" doc:id="e1de997c-fc20-4c3c-99ba-2246cd43c2df" message="#[payload]"/>
+	</flow>
+</mule>
